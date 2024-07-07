@@ -23,7 +23,7 @@
         <nav class="flex-grow my-0">
           <ul class="space-y-2 px-2">
             <li>
-              <RouterLink
+              <NuxtLink
                 to="/"
                 class="flex items-center px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors duration-200 text-gray-300 hover:text-white no-underline"
               >
@@ -32,11 +32,11 @@
                   :class="{ 'mr-3': isSidebarOpen }"
                 ></i>
                 <span class="text-lg" v-if="isSidebarOpen">Inicio</span>
-              </RouterLink>
+              </NuxtLink>
             </li>
             <li>
-              <RouterLink
-                to="/home"
+              <NuxtLink
+                to="/prueba"
                 class="flex items-center px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors duration-200 text-gray-300 hover:text-white no-underline"
               >
                 <i
@@ -44,7 +44,7 @@
                   :class="{ 'mr-3': isSidebarOpen }"
                 ></i>
                 <span class="text-lg" v-if="isSidebarOpen">Home</span>
-              </RouterLink>
+              </NuxtLink>
             </li>
           </ul>
         </nav>
@@ -111,10 +111,8 @@
     ></div>
   </div>
 </template>
-  
-<script setup>
-import { ref } from "vue";
 
+<script setup>
 const isSidebarOpen = ref(false);
 
 const toggleSidebar = () => {

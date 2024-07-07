@@ -10,8 +10,11 @@
 </template>
 
 <script setup lang="ts">
+import { ref, defineEmits } from "vue";
 import Agregar from "~/components/prueba/Agregar.vue";
-const { pruebas, obtenerPruebas, eliminarPrueba } = usePruebaCrud();
+
+const emit = defineEmits(["pruebaAgregada"]);
+const { obtenerPruebas } = usePruebaCrud();
 
 const isAddModalOpen = ref(false);
 
@@ -26,6 +29,7 @@ const closeAddModal = () => {
 const handlePruebaAdded = async () => {
   await obtenerPruebas();
   closeAddModal();
+  emit("pruebaAgregada");
 };
 
 onMounted(async () => {

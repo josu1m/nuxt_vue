@@ -1,64 +1,60 @@
+<!-- components/Modal.vue -->
 <template>
   <div class="font-sans relative">
-    <Transition
-      enter-active-class="duration-300 ease-out"
-      enter-from-class="opacity-0"
-      enter-to-class="opacity-100"
-      leave-active-class="duration-200 ease-in"
-      leave-from-class="opacity-100"
-      leave-to-class="opacity-0"
-    >
-      <div v-if="isOpen" :class="backdropClass" @click="closeModal">
-        <Transition
-          enter-active-class="duration-300 ease-out"
-          enter-from-class="opacity-0 scale-95 translate-y-4"
-          enter-to-class="opacity-100 scale-100 translate-y-0"
-          leave-active-class="duration-200 ease-in"
-          leave-from-class="opacity-100 scale-100 translate-y-0"
-          leave-to-class="opacity-0 scale-95 translate-y-4"
-        >
-          <div
-            v-if="isOpen"
-            @click.stop
-            :class="modalSizeClass"
-            class="bg-slate-800 bg-opacity-90 backdrop-blur-lg rounded-2xl shadow-2xl mx-auto overflow-hidden transform transition-all m-4 p-0"
+    <ClientOnly>
+      <Transition
+        enter-active-class="duration-300 ease-out"
+        enter-from-class="opacity-0"
+        enter-to-class="opacity-100"
+        leave-active-class="duration-200 ease-in"
+        leave-from-class="opacity-100"
+        leave-to-class="opacity-0"
+      >
+        <div v-if="isOpen" :class="backdropClass" @click="closeModal" class="p-4">
+          <Transition
+            enter-active-class="duration-300 ease-out"
+            enter-from-class="opacity-0 scale-95 translate-y-4"
+            enter-to-class="opacity-100 scale-100 translate-y-0"
+            leave-active-class="duration-200 ease-in"
+            leave-from-class="opacity-100 scale-100 translate-y-0"
+            leave-to-class="opacity-0 scale-95 translate-y-4"
           >
-            <div class="p-4 space-y-4 text-white">
-              <slot name="header"> </slot>
-
-              <slot name="content"> </slot>
-
-              <slot name="footer"> </slot>
+            <div
+              v-if="isOpen"
+              @click.stop
+              :class="modalSizeClass"
+              class="bg-slate-900 bg-opacity-90 backdrop-blur-lg rounded-2xl shadow-2xl mx-auto overflow-hidden transform transition-all m-4 p-0"
+            >
+              <div class="p-4 space-y-4 ">
+                <slot name="header"></slot>
+                <slot name="content"></slot>
+                <slot name="footer"></slot>
+              </div>
             </div>
-          </div>
-        </Transition>
-      </div>
-    </Transition>
+          </Transition>
+        </div>
+      </Transition>
+    </ClientOnly>
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed } from "vue";
 
-const props = defineProps({
-  isOpen: {
-    type: Boolean,
-    required: true,
-  },
-  size: {
-    type: String,
-    default: "medium",
-    validator: (value) =>
-      ["small", "medium", "large", "extra-large"].includes(value),
-  },
-  position: {
-    type: String,
-    default: "center",
-    validator: (value) => ["top", "center", "bottom"].includes(value),
-  },
+interface Props {
+  isOpen: boolean;
+  size?: "small" | "medium" | "large" | "extra-large";
+  position?: "top" | "center" | "bottom";
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  size: "medium",
+  position: "center",
 });
 
-const emit = defineEmits(["close"]);
+const emit = defineEmits<{
+  (e: "close"): void;
+}>();
 
 const closeModal = () => {
   emit("close");

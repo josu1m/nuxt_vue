@@ -1,0 +1,44 @@
+:root {
+    color-scheme: light dark;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    color: light-dark(#000000, #efefec);
+    background-color: light-dark(#efedea, #000000);
+    padding: 0;
+    margin: 0;
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+    width: 8px;
+    /* Ancho del scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background: light-dark(#efedea, #223a2c);
+    /* Color de fondo del track */
+    border-radius: 10px;
+    /* Borde redondeado */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: light-dark(#a0a0a0, #555);
+    /* Color del thumb (la parte que se desplaza) */
+    border-radius: 5px;
+    /* Borde redondeado */
+    border: 2px solid light-dark(#efedea, #223a2c);
+    /* Espacio alrededor del thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: light-dark(#888, #777);
+    /* Color del thumb al pasar el mouse */
+}
+
+::-webkit-scrollbar-corner {
+    background: light-dark(#efedea, #223a2c);
+    /* Esquina del scrollbar */
+}
